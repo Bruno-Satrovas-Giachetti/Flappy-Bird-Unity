@@ -1,14 +1,22 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PipeBehavior : MonoBehaviour
 {
+    private AudioSource audioSource;
+
     public float speed;
     public float minPositionX = -6.32f;
     public float spawnPositionX = 2.2f;
     public float minPositionsY = -2.23f;
     public float maxPositionY = 1.94f;
 
-    int points = 0;
+    int score = 0;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     //some -6.32
     //surge 2.2
     //yMax 1.94
@@ -37,7 +45,9 @@ public class PipeBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        points++;
-        print("Pontuação: " + points);
+        audioSource.Play();
+        score++;
+        GameManager.gameBehavior.uiManager.UpdateScoreUI(score);
+        print("Pontuação: " + score);
     }
 }

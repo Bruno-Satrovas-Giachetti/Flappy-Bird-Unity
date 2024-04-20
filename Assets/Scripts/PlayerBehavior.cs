@@ -3,13 +3,17 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour
 {
     Rigidbody2D rigidbody;
-    
     public float jumpForce = 700;
     public bool canFly;
 
+    [SerializeField] private AudioClip[] audioClip;
+    private AudioSource audioSource;
+
+
     void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+       rigidbody = GetComponent<Rigidbody2D>();
+       audioSource = GetComponent<AudioSource>();
         canFly = true;
     }
 
@@ -24,6 +28,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        audioSource.clip = audioClip[0];
+        audioSource.Play();
         canFly = false;
     }
 
